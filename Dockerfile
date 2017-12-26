@@ -9,8 +9,9 @@ RUN tar xvf Python-3.6.4.tgz
 RUN cd Python-3.6.4 && ./configure && make && make install && cd ..
 
 
-RUN pip3 install numpy pandas matplotlib tensorflow h5py ipython
+RUN pip3 install numpy pandas matplotlib tensorflow h5py keras pydot ipython
 
+ADD . /usr/models
 
 WORKDIR /usr/models
 
