@@ -16,7 +16,8 @@ RUN echo "c.NotebookApp.ip = '*'" \
          "\nc.NotebookApp.open_browser = False" \
          "\nc.NotebookApp.token = ''" \
          > /root/.jupyter/jupyter_notebook_config.py
-RUN python3 -m pip install numpy pandas matplotlib tensorflow h5py keras pydot ipython scipy
+RUN python3 -m pip install numpy pandas matplotlib \
+tensorflow h5py keras pydot ipython scipy
 
 EXPOSE 8888
 EXPOSE 7777
