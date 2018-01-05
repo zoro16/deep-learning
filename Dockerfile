@@ -2,7 +2,8 @@ FROM debian:9.3
 
 RUN apt-get update && apt-get install wget curl -y
 RUN apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
-libreadline-dev libsqlite3-dev llvm libncurses5-dev  libncursesw5-dev xz-utils tk-dev
+libreadline-dev libsqlite3-dev llvm libncurses5-dev  libncursesw5-dev xz-utils tk-dev \
+libcupti-dev python3-numpy python3-dev python3-pip python3-wheel
 
 # # install python 3.6
 RUN wget https://www.python.org/ftp/python/3.6.4/Python-3.6.4.tgz
@@ -17,7 +18,7 @@ RUN echo "c.NotebookApp.ip = '*'" \
          "\nc.NotebookApp.token = ''" \
          > /root/.jupyter/jupyter_notebook_config.py
 RUN python3 -m pip install numpy pandas matplotlib \
-tensorflow h5py keras pydot ipython scipy
+tensorflow h5py keras pydot ipython scipy pyconfig wheel six
 
 EXPOSE 8888
 EXPOSE 7777
