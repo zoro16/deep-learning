@@ -1,0 +1,6 @@
+#+TITLE: ML Strategy (1)
+#+AUTHOR: Mohamed Saleh A. Abdelgadir
+#+EMAIL: mohamed.saleh16@gmail.com
+#+OPTIONS: H:2 num:nil toc:nil \n:nil @:t ::t |:t ^:{} _:{} *:t TeX:t LaTeX:t
+
+
