@@ -3,16 +3,16 @@
 #+EMAIL: mohamed.saleh16@gmail.com
 #+OPTIONS: H:2 num:nil toc:nil \n:nil @:t ::t |:t ^:{} _:{} *:t TeX:t LaTeX:t
 
-
-* Why Sequence models
-* Notation
-* Recurrent Neural Network Model
-* Backpropagation through time
-* Different types of RNNs
-* Language model and sequence generation 
-* Simple novel squence
-* Vanishing gradients with RNNs
-* Gated Recurrent Unit (GRU)
-* Long Short Term Memory (LSTM)
-* Bidirectional RNN
-* Deep RNNs
+* Recurrent Neural Networks
+** Why Sequence models
+** Notation
+** Recurrent Neural Network Model
+** Backpropagation through time
+** Different types of RNNs
+** Language model and sequence generation 
+** Simple novel squence
+** Vanishing gradients with RNNs
+** Gated Recurrent Unit (GRU)
+** Long Short Term Memory (LSTM)
+** Bidirectional RNN
+** Deep RNNs
