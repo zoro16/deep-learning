@@ -5,6 +5,25 @@
 
 
 ** Why Sequence models
+*** Examples of sequence data
+   | Problem                    | X                                       | Y                                        |
+   |----------------------------+-----------------------------------------+------------------------------------------|
+   | Speech Recognition         | speech audio file                       | the text of the speech in the audio file |
+   |----------------------------+-----------------------------------------+------------------------------------------|
+   | Music Generation           | {}                                      | Music file                               |
+   |----------------------------+-----------------------------------------+------------------------------------------|
+   | Sentiment Classification   | "This is nothing to like in this movie" | How many stars to give                   |
+   |----------------------------+-----------------------------------------+------------------------------------------|
+   | DNA sequence analysis      | AGCCCCTGTGAGGAACTAG                     | AG =CCCCTGTGAGGAACT= AG                  |
+   |----------------------------+-----------------------------------------+------------------------------------------|
+   | Machine Translation        | Voulez-vous chanter avec moi?           | Do you want to sing with me?             |
+   |----------------------------+-----------------------------------------+------------------------------------------|
+   | Video Activity Recognition | A video of a person running             | Running                                  |
+   |----------------------------+-----------------------------------------+------------------------------------------|
+   | Name entity recognition    | Yesterday, Zoro met Luffy               | Yesterday, =Zoro= met =Luffy=            |
+
+
+
 ** Notation
 ** Recurrent Neural Network Model
 ** Backpropagation through time
