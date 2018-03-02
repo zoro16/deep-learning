@@ -153,9 +153,6 @@ Instructions:
     1- Concatenate a⟨t−1⟩ and x⟨t⟩ in a single matrix: concat=[a⟨t−1⟩x⟨t⟩]
     2- Compute all the formulas 1-6. You can use sigmoid() (provided) and np.tanh().
     3- Compute the prediction y⟨t⟩. You can use softmax() (provided).
-
-https://stackoverflow.com/questions/30960412/concatenate-several-np-arrays-in-python
-https://docs.scipy.org/doc/numpy/reference/generated/numpy.concatenate.html
 '''
 
 def lstm_cell_forward(xt, a_prev, c_prev, parameters):
@@ -206,9 +203,9 @@ def lstm_cell_forward(xt, a_prev, c_prev, parameters):
 
     ### START CODE HERE ###
     # Concatenate a_prev and xt (≈3 lines)
-    concat = None
-    concat[: n_a, :] = None
-    concat[n_a :, :] = None
+    concat = np.zeros((n_a, n_a, m))
+    concat[: n_a, :] = xt
+    concat[n_a :, :] = a_prev
 
     # Compute values for ft, it, cct, c_next, ot, a_next using the formulas given figure (4) (≈6 lines)
     ft = None
@@ -225,7 +222,7 @@ def lstm_cell_forward(xt, a_prev, c_prev, parameters):
     # store values needed for backward propagation in cache
     cache = (a_next, c_next, a_prev, c_prev, ft, it, cct, ot, xt, parameters)
 
-    return a_next, c_next, yt_pred, cache
+    # return a_next, c_next, yt_pred, cache
 
 
 np.random.seed(1)
@@ -245,7 +242,7 @@ by = np.random.randn(2,1)
 
 parameters = {"Wf": Wf, "Wi": Wi, "Wo": Wo, "Wc": Wc, "Wy": Wy, "bf": bf, "bi": bi, "bo": bo, "bc": bc, "by": by}
 
-a_next, c_next, yt, cache = lstm_cell_forward(xt, a_prev, c_prev, parameters)
+lstm_cell_forward(xt, a_prev, c_prev, parameters)
 
 # a_next, c_next, yt, cache = lstm_cell_forward(xt, a_prev, c_prev, parameters)
 # print("a_next[4] = ", a_next[4])
