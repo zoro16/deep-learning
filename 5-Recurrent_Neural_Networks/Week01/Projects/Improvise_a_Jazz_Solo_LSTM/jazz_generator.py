@@ -30,9 +30,8 @@ LSTM with 64 dimensional hidden states
 n_a = 64
 
 reshapor = Reshape((1, 78))                        # Used in Step 2.B of djmodel(), below
-LSTM_cell = LSTM(n_a, return_state = True)         # Used in Step 2.C
+LSTM_cell = LSTM(n_a, return_state=True)           # Used in Step 2.C
 densor = Dense(n_values, activation='softmax')     # Used in Step 2.D
-
 
 def djmodel(Tx, n_a, n_values):
     """
@@ -58,24 +57,24 @@ def djmodel(Tx, n_a, n_values):
     
     ### START CODE HERE ### 
     # Step 1: Create empty list to append the outputs while you iterate (≈1 line)
-    outputs = None
+    outputs = []
     
     # Step 2: Loop
     for t in range(Tx):
         
         # Step 2.A: select the "t"th time step vector from X. 
-        x = None
+        x = Lambda(lambda x: X[:,t,:])(X)
         # Step 2.B: Use reshapor to reshape x to be (1, n_values) (≈1 line)
-        x = None
+        x = reshapor(x)
         # Step 2.C: Perform one step of the LSTM_cell
-        a, _, c = None
+        a, _, c = LSTM_cell(x, initial_state=[a, c])
         # Step 2.D: Apply densor to the hidden state output of LSTM_Cell
-        out = None
+        out = densor(a)
         # Step 2.E: add the output to "outputs"
-        None
+        outputs.append(out)
         
     # Step 3: Create model instance
-    model = None
+    model = Model(inputs=[X, a0, c0], outputs=outputs)
     
     ### END CODE HERE ###
     
@@ -83,6 +82,7 @@ def djmodel(Tx, n_a, n_values):
 
 
 model = djmodel(Tx = 30 , n_a = 64, n_values = 78)
+
 opt = Adam(lr=0.01, beta_1=0.9, beta_2=0.999, decay=0.01)
 model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
 
@@ -95,7 +95,7 @@ model.fit([X, a0, c0], list(Y), epochs=100)
 
 def music_inference_model(LSTM_cell, densor, n_values = 78, n_a = 64, Ty = 100):
     """
-    Uses the trained "LSTM_cell" and "densor" from model() to generate a sequence of values.
+    Uses the trained 'LSTM_cell' and "densor" from model() to generate a sequence of values.
     
     Arguments:
     LSTM_cell -- the trained "LSTM_cell" from model(), Keras layer object
@@ -120,27 +120,27 @@ def music_inference_model(LSTM_cell, densor, n_values = 78, n_a = 64, Ty = 100):
 
     ### START CODE HERE ###
     # Step 1: Create an empty list of "outputs" to later store your predicted values (≈1 line)
-    outputs = None
+    outputs = []
     
     # Step 2: Loop over Ty and generate a value at every time step
-    for t in range(None):
+    for t in range(Ty):
         
         # Step 2.A: Perform one step of LSTM_cell (≈1 line)
-        a, _, c = None
+        a, _, c = LSTM_cell(x, initial_state=[a, c])
         
         # Step 2.B: Apply Dense layer to the hidden state output of the LSTM_cell (≈1 line)
-        out = None
+        out = densor(a)
 
         # Step 2.C: Append the prediction "out" to "outputs". out.shape = (None, 78) (≈1 line)
-        None
+        outputs.append(out)
         
         # Step 2.D: Select the next value according to "out", and set "x" to be the one-hot representation of the
         #           selected value, which will be passed as the input to LSTM_cell on the next step. We have provided 
         #           the line of code you need to do this. 
-        x = None
+        x = Lambda(one_hot)(out)
         
     # Step 3: Create model instance with the correct "inputs" and "outputs" (≈1 line)
-    inference_model = None
+    inference_model = Model(inputs=[x0, a0, c0], outputs=outputs)
     
     ### END CODE HERE ###
     
@@ -171,11 +171,11 @@ def predict_and_sample(inference_model, x_initializer = x_initializer, a_initial
     
     ### START CODE HERE ###
     # Step 1: Use your inference model to predict an output sequence given x_initializer, a_initializer and c_initializer.
-    pred = None
+    pred = inference_model.predict([x_initializer, a_initializer, c_initializer])
     # Step 2: Convert "pred" into an np.array() of indices with the maximum probabilities
-    indices = None
+    indices = np.argmax(pred, axis=-1)
     # Step 3: Convert indices to one-hot vectors, the shape of the results should be (1, )
-    results = None
+    results = to_categorical(indices, num_classes=78)
     ### END CODE HERE ###
     
     return results, indices
